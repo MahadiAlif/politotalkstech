@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const alumni = await getCollection('alumni');
+  return alumni.map(story => ({
+    params: { slug: story.slug },
+    props: { story },
+  }));
+}
+
+type Props = {
+  story: CollectionEntry<'alumni'>;
+};
+
+const { story } = Astro.props;
+const { Content } = await story.render();
+
+const metadata: Record<string, string> = {
+  'Graduated': story.data.graduationYear,
+  'Current Role': story.data.currentRole,
+};
+---
+
+<BaseLayout title={`${story.data.title} - PolitoTalksTech`}>
+  <ArticleLayout
+    title={story.data.title}
+    author={story.data.author}
+    date={story.data.date}
+    tags={story.data.tags}
+    metadata={metadata}
+  >
+    <Content />
+  </ArticleLayout>
+</BaseLayout>

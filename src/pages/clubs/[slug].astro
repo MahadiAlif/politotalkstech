@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const clubs = await getCollection('clubs');
+  return clubs.map(club => ({
+    params: { slug: club.slug },
+    props: { club },
+  }));
+}
+
+type Props = {
+  club: CollectionEntry<'clubs'>;
+};
+
+const { club } = Astro.props;
+const { Content } = await club.render();
+
+const metadata: Record<string, string> = {
+  'Members': club.data.members.toString(),
+  'Meeting Time': club.data.meetingTime,
+  'Location': club.data.location,
+  'Contact': club.data.contact,
+};
+---
+
+<BaseLayout title={`${club.data.title} - PolitoTalksTech`}>
+  <ArticleLayout
+    title={club.data.title}
+    author="PolitoTalksTech"
+    date={new Date()}
+    tags={club.data.tags}
+    metadata={metadata}
+  >
+    <div class="club-description">
+      <p>{club.data.description}</p>
+    </div>
+
+    {club.data.activities && club.data.activities.length > 0 && (
+      <div class="activities-section">
+        <h2>Activities</h2>
+        <ul>
+          {club.data.activities.map(activity => (
+            <li>{activity}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <Content />
+  </ArticleLayout>
+</BaseLayout>
+
+<style>
+.club-description {
+  margin-bottom: var(--space-6);
+}
+
+.activities-section {
+  margin: var(--space-6) 0;
+}
+
+.activities-section h2 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-3);
+}
+</style>

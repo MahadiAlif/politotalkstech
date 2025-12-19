@@ -1,0 +1,100 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContentCard from '../components/ContentCard.astro';
+
+// Get all content
+const projects = await getCollection('projects');
+const research = await getCollection('research');
+const alumni = await getCollection('alumni');
+
+// Combine and sort chronologically
+const allContent = [
+  ...projects.map(p => ({
+    ...p,
+    type: 'projects',
+    href: `/projects/${p.slug}`,
+    author: p.data.author,
+    date: p.data.date,
+  })),
+  ...research.map(r => ({
+    ...r,
+    type: 'research',
+    href: `/research/${r.slug}`,
+    author: r.data.author,
+    date: r.data.date,
+    metadata: r.data.researchType,
+  })),
+  ...alumni.map(a => ({
+    ...a,
+    type: 'alumni',
+    href: `/alumni/${a.slug}`,
+    author: a.data.author,
+    date: a.data.date,
+    metadata: a.data.currentRole,
+  })),
+].sort((a, b) => b.date.getTime() - a.date.getTime()).slice(0, 10);
+---
+
+<BaseLayout title="PolitoTalksTech">
+  <div class="hero">
+    <div class="container">
+      <h1 class="hero-title">PolitoTalksTech</h1>
+      <p class="hero-description">
+        An editorial publication featuring student projects, academic research,
+        club activities, and alumni stories from Politecnico di Torino.
+      </p>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="container container--narrow">
+      <section class="content-list">
+        {allContent.map(item => (
+          <ContentCard
+            title={item.data.title}
+            author={item.author}
+            date={item.date}
+            excerpt={item.data.excerpt || item.data.description}
+            href={item.href}
+            tags={item.data.tags}
+            metadata={item.metadata}
+          />
+        ))}
+      </section>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.hero {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-12) 0 var(--space-8) 0;
+  background-color: var(--color-background);
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: var(--text-5xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-4) 0;
+}
+
+.hero-description {
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+  max-width: 680px;
+  margin: 0;
+}
+
+.main-content {
+  padding: var(--space-8) 0;
+}
+
+.content-list {
+  max-width: 800px;
+  margin: 0 auto;
+}
+</style>

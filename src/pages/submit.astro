@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Submit - PolitoTalksTech">
+  <div class="page-header">
+    <div class="container">
+      <h1>Submit</h1>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <div class="container container--article">
+      <article class="editorial-policy">
+        <section>
+          <h2>Editorial Policy</h2>
+          <p>
+            PolitoTalksTech publishes student projects, academic research, club activities,
+            and alumni career stories from the Politecnico di Torino community.
+          </p>
+
+          <h3>What We Publish</h3>
+          <ul>
+            <li><strong>Projects:</strong> Software, hardware, and interdisciplinary projects built by students</li>
+            <li><strong>Research:</strong> Academic research, theses, and scholarly work</li>
+            <li><strong>Clubs:</strong> Student organizations and community groups</li>
+            <li><strong>Alumni:</strong> Career stories and professional journeys of graduates</li>
+          </ul>
+
+          <h3>Submission Guidelines</h3>
+          <p>
+            To submit content, send an email to <a href="mailto:submissions@politotalkstech.edu">submissions@politotalkstech.edu</a> with:
+          </p>
+          <ul>
+            <li>Title and brief summary</li>
+            <li>Full content in Markdown format</li>
+            <li>Author name and affiliation</li>
+            <li>Relevant tags and metadata</li>
+          </ul>
+
+          <h3>Review Process</h3>
+          <p>
+            All submissions are reviewed for clarity, relevance, and quality.
+            We will respond within two weeks.
+          </p>
+        </section>
+      </article>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+.page-header {
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-8) 0;
+}
+
+.page-header h1 {
+  font-family: var(--font-serif);
+  font-size: var(--text-4xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.main-content {
+  padding: var(--space-8) 0;
+}
+
+.editorial-policy {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-secondary);
+}
+
+.editorial-policy h2 {
+  font-family: var(--font-serif);
+  font-size: var(--text-3xl);
+  color: var(--color-text-primary);
+  margin: var(--space-8) 0 var(--space-4) 0;
+}
+
+.editorial-policy h2:first-child {
+  margin-top: 0;
+}
+
+.editorial-policy h3 {
+  font-family: var(--font-serif);
+  font-size: var(--text-2xl);
+  color: var(--color-text-primary);
+  margin: var(--space-6) 0 var(--space-3) 0;
+}
+
+.editorial-policy p {
+  margin-bottom: var(--space-4);
+}
+
+.editorial-policy ul {
+  margin: var(--space-4) 0;
+  padding-left: var(--space-6);
+}
+
+.editorial-policy li {
+  margin-bottom: var(--space-2);
+}
+
+.editorial-policy a {
+  color: var(--color-link);
+  text-decoration: underline;
+}
+
+.editorial-policy a:hover {
+  color: var(--color-link-hover);
+}
+</style>

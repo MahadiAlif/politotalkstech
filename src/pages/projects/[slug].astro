@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleLayout from '../../components/ArticleLayout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+type Props = {
+  project: CollectionEntry<'projects'>;
+};
+
+const { project } = Astro.props;
+const { Content } = await project.render();
+
+const metadata: Record<string, string> = {};
+if (project.data.technologies) {
+  metadata['Technologies'] = project.data.technologies.join(', ');
+}
+if (project.data.github) {
+  metadata['GitHub'] = project.data.github;
+}
+if (project.data.demo) {
+  metadata['Demo'] = project.data.demo;
+}
+---
+
+<BaseLayout title={`${project.data.title} - PolitoTalksTech`}>
+  <ArticleLayout
+    title={project.data.title}
+    author={project.data.author}
+    date={project.data.date}
+    tags={project.data.tags}
+    metadata={metadata}
+  >
+    <Content />
+  </ArticleLayout>
+</BaseLayout>
