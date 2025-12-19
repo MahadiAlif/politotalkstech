@@ -1,0 +1,155 @@
+# Decap CMS Configuration for Politotalkstech
+# Editorial publication content management
+
+backend:
+  name: git-gateway
+  branch: main
+
+# For local development (optional)
+local_backend: true
+
+# Media files configuration
+media_folder: "public/images/uploads"
+public_folder: "/images/uploads"
+
+# Publishing mode
+publish_mode: editorial_workflow
+
+# Site configuration
+site_url: https://politotalkstech.com
+display_url: https://politotalkstech.com
+logo_url: https://politotalkstech.com/logo.png
+
+# Collections configuration
+collections:
+  # Projects Collection
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "src/content/projects"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true, hint: "Project name or title"}
+      - {label: "Author", name: "author", widget: "string", required: true, hint: "Student name or team name"}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: true, hint: "Brief description (1-2 sentences) for listing pages"}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: true
+        hint: "Add relevant tags (e.g., AI, Web Development, IoT)"
+        field: {label: "Tag", name: "tag", widget: "string"}
+      - label: "Technologies"
+        name: "technologies"
+        widget: "list"
+        required: false
+        hint: "Technologies used in the project"
+        field: {label: "Technology", name: "tech", widget: "string"}
+      - {label: "GitHub URL", name: "github", widget: "string", required: false, hint: "Link to GitHub repository"}
+      - {label: "Demo URL", name: "demo", widget: "string", required: false, hint: "Link to live demo"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false, hint: "Project screenshot or logo"}
+      - {label: "Content", name: "body", widget: "markdown", required: true, hint: "Full project description"}
+
+  # Research Collection
+  - name: "research"
+    label: "Research"
+    label_singular: "Research Article"
+    folder: "src/content/research"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true, hint: "Research paper or thesis title"}
+      - {label: "Author", name: "author", widget: "string", required: true, hint: "Researcher name"}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: true, hint: "Brief summary for listing pages"}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: true
+        hint: "Research topics and keywords"
+        field: {label: "Tag", name: "tag", widget: "string"}
+      - label: "Research Type"
+        name: "researchType"
+        widget: "select"
+        required: true
+        options:
+          - {label: "Master's Thesis", value: "Master's Thesis"}
+          - {label: "PhD Research", value: "PhD Research"}
+          - {label: "PhD Dissertation", value: "PhD Dissertation"}
+          - {label: "Literature Review", value: "Literature Review"}
+          - {label: "Research Paper", value: "Research Paper"}
+          - {label: "Conference Paper", value: "Conference Paper"}
+      - {label: "Advisor", name: "advisor", widget: "string", required: true, hint: "Research advisor or supervisor"}
+      - {label: "Department", name: "department", widget: "string", required: true, hint: "Academic department"}
+      - {label: "Abstract", name: "abstract", widget: "text", required: true, hint: "Research abstract (2-3 sentences)"}
+      - {label: "Featured Image", name: "image", widget: "image", required: false, hint: "Diagram or illustration"}
+      - {label: "Content", name: "body", widget: "markdown", required: true, hint: "Full research summary"}
+
+  # Clubs Collection
+  - name: "clubs"
+    label: "Clubs"
+    label_singular: "Club"
+    folder: "src/content/clubs"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Club Name", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "text", required: true, hint: "Brief description of the club (2-3 sentences)"}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: true
+        hint: "Club focus areas (e.g., AI, Cybersecurity, Robotics)"
+        field: {label: "Tag", name: "tag", widget: "string"}
+      - {label: "Number of Members", name: "members", widget: "number", required: true, value_type: "int", min: 1}
+      - {label: "Meeting Time", name: "meetingTime", widget: "string", required: true, hint: "e.g., Thursdays 6:00 PM"}
+      - {label: "Location", name: "location", widget: "string", required: true, hint: "Meeting room or building"}
+      - {label: "Contact Email", name: "contact", widget: "string", required: true, pattern: ['^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', "Must be a valid email address"]}
+      - label: "Activities"
+        name: "activities"
+        widget: "list"
+        required: true
+        hint: "Key club activities"
+        field: {label: "Activity", name: "activity", widget: "string"}
+      - {label: "Club Logo", name: "image", widget: "image", required: false}
+      - {label: "Content", name: "body", widget: "markdown", required: true, hint: "Detailed club information"}
+
+  # Alumni Collection
+  - name: "alumni"
+    label: "Alumni Stories"
+    label_singular: "Alumni Story"
+    folder: "src/content/alumni"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: true
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true, hint: "Story title (e.g., 'From Student to Tech Lead')"}
+      - {label: "Author", name: "author", widget: "string", required: true, hint: "Alumni name"}
+      - {label: "Publish Date", name: "date", widget: "datetime", required: true, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: true, hint: "Brief story summary"}
+      - label: "Tags"
+        name: "tags"
+        widget: "list"
+        required: true
+        hint: "Career topics (e.g., Entrepreneurship, Engineering, Research)"
+        field: {label: "Tag", name: "tag", widget: "string"}
+      - {label: "Graduation Year & Program", name: "graduationYear", widget: "string", required: true, hint: "e.g., Computer Engineering, 2020"}
+      - {label: "Current Role", name: "currentRole", widget: "string", required: true, hint: "Current job title and company"}
+      - {label: "Profile Photo", name: "image", widget: "image", required: false}
+      - {label: "Content", name: "body", widget: "markdown", required: true, hint: "Full alumni story"}

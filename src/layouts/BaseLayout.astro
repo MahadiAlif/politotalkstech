@@ -25,6 +25,9 @@ const {
     <title>{title}</title>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Netlify Identity Widget for admin authentication -->
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   </head>
   <body>
     <Header />
@@ -32,5 +35,18 @@ const {
       <slot />
     </main>
     <Footer />
+
+    <!-- Netlify Identity redirect script -->
+    <script is:inline>
+      if (window.netlifyIdentity) {
+        window.netlifyIdentity.on("init", user => {
+          if (!user) {
+            window.netlifyIdentity.on("login", () => {
+              document.location.href = "/admin/";
+            });
+          }
+        });
+      }
+    </script>
   </body>
 </html>

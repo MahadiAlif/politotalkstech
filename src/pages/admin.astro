@@ -1,0 +1,18 @@
+---
+// Redirect to admin interface
+if (import.meta.env.DEV) {
+  // In development, serve the admin UI directly
+  return Astro.redirect('/admin/index.html');
+}
+---
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=/admin/index.html">
+    <script>window.location.href = '/admin/index.html'</script>
+  </head>
+  <body>
+    <p>Redirecting to admin...</p>
+  </body>
+</html>

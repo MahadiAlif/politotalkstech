@@ -12,6 +12,7 @@ const projects = defineCollection({
     technologies: z.array(z.string()).optional(),
     github: z.string().url().optional(),
     demo: z.string().url().optional(),
+    image: z.string().optional(),
   }),
 });
 
@@ -28,6 +29,7 @@ const research = defineCollection({
     advisor: z.string(),
     department: z.string(),
     abstract: z.string(),
+    image: z.string().optional(),
   }),
 });
 
@@ -43,6 +45,7 @@ const clubs = defineCollection({
     location: z.string(),
     contact: z.string().email(),
     activities: z.array(z.string()),
+    image: z.string().optional(),
   }),
 });
 
@@ -57,6 +60,7 @@ const alumni = defineCollection({
     tags: z.array(z.string()),
     graduationYear: z.string(),
     currentRole: z.string(),
+    image: z.string().optional(),
   }),
 });
 
